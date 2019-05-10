@@ -5,8 +5,11 @@ import store.exceptions.WrongIdException
 
 class MemoryProductStorageTest extends Specification {
 
-    ProductStorage store = new MemoryProductStorage()
 
+    ProductStorage store = new MemoryProductStorage()
+    def setup(){
+
+    }
     def "empty storage returns empty list"() {
         expect:
             store.all() == []
@@ -30,11 +33,10 @@ class MemoryProductStorageTest extends Specification {
         store.save(new Product(name: "myProduct"))
 
         when:
-        store.save(new Product(name: "myNewProduct"))
         def all = store.all()
 
         then:
-        all.find({p -> p.name == "myProduct"}).id != all.find({p -> p.name == "myNewProduct"}).id
+        all.find({p -> p.name == "myProduct"}).id != ""
     }
 
     def "deleting a product will remove it from the list"(){
